@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  resource-vps:
+    image: lscr.io/linuxserver/chromium:latest
+    container_name: resource-vps
+    security_opt:
+      - seccomp:unconfined  # optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Makassar
+      - CUSTOM_USER=user
+      - PASSWORD=password
+      - TITLE=Resource-1
+      - CHROME_CLI=https://google.com
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/chromium/config:/config
+    shm_size: 1gb
+    restart: unless-stopped

@@ -1,120 +1,143 @@
-# resource-miner
+# ⚙️ Resource-Miner: Setup Otomatis & Monitoring Cloud Instance
 
-#cara mengatur jam server#
----------------------------------------------------------------------------
+`resource-miner` adalah skrip otomatisasi yang membantu Anda mengatur waktu server, meningkatkan performa sistem (melalui swap file), mengelola container Docker, serta mengaktifkan sistem monitoring melalui notifikasi Telegram dengan systemd.
 
+---
 
+## 📆 Pengaturan Waktu Server
+-----------------------------
+Cek waktu saat ini:
 
-date
+   ```bash
+   date
+
+Pilih zona waktu yang sesuai:
 
 timedatectl list-timezones | grep Makassar
 
+Atur zona waktu ke Asia/Makassar:
+
 sudo timedatectl set-timezone Asia/Makassar
 
-timedatectl
+Konfirmasi:
 
+timedatectl
 date
 
+#🐳 Menjalankan Container Docker
+-------------------------------
+Jalankan container:
 
+docker compose up -d
 
-#Menambah ukuran swap
------------------------------------------------------------------------------
+Cek status container:
+
+docker ps -a
+
+Lihat log:
+
+docker logs <container-name-or-id>
+
+Restart container:
+
+docker restart <container-name-or-id>
+
+#Menambahkan Swap (Virtual RAM)
+--------------------------------
+Cek memori:
 
 free -h
+
+Tambahkan 2GB swap:
+
 
 sudo fallocate -l 2G /swapfile
-
 sudo chmod 600 /swapfile
-
 sudo mkswap /swapfile
-
 sudo swapon /swapfile
-
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
-free -h
+Tuning performa swap:
+
 
 sudo sysctl vm.swappiness=10
-
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
 
 sudo sysctl vm.vfs_cache_pressure=50
-
 echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
 
+Verifikasi:
 
-#Menyimpan semua script pada direktori /root
-----------------------------------------------------------------------------
+free -h
+
+#📂 Menyimpan Skrip ke Direktori /root
+-------------------------------------
 
 sudo su -
-
 git clone https://github.com/OBC-crypto/resource-miner.git
-
 cd resource-miner
 
 
-#Eksekusi script reboot.sh
------------------------------------------------------------------------------
+#🔁 Eksekusi Skrip Otomatisasi
+----------------------------
 
+reboot.sh
+Edit file:
+nano reboot.sh
+
+Isi TELEGRAM_TOKEN dan CHAT_ID.
+
+Simpan dan beri izin eksekusi:
 
 chmod +x reboot.sh
-
 ./reboot.sh
 
 
+restart-container.sh
+Edit file:
+nano restart-container.sh
 
-#Eksekusi script restart-container.sh
------------------------------------------------------------------------------
+Isi TELEGRAM_TOKEN dan CHAT_ID.
 
+Simpan dan eksekusi:
 
 chmod +x restart-container.sh
-
 ./restart-container.sh
 
 
+#🛡️ Menjalankan Monitoring via systemd
+-------------------------------------
 
-#Eksekusi script multi-monitor-auto-clean.sh
------------------------------------------------------------------------------
+Pindahkan dan edit skrip receiver:
 
-
-mv /root/resource-miner/multi-monitor-auto-clean.sh /root
-
-chmod multi-monitor-auto-clean.sh
-
-./multi-monitor-auto-clean.sh &
+mv /root/resource-miner/receiver.py /root
+nano /root/receiver.py
+Isi token Telegram dan chat ID lalu simpan.
 
 
-
-#Eksekusi simple python webserver (no dashboard)
-----------------------------------------------------------------------------
+Aktifkan layanan dengan systemd:
 
 
-mv /root/resource-miner/receive-ip-server.py /root
-
-chmod +x receive-ip-server.py
-
-nohup ./receive-ip-server.py &
-
-
-
-#Menambahkan pengaturan pada systemd
-----------------------------------------------------------------------------
-
-
-mv  /root/resource-miner/ip-monitor.service /etc/systemd/system
-
-
+mv /root/resource-miner/cloudshell-receiver.service /etc/systemd/system
+sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
+sudo systemctl enable cloudshell-receiver
+sudo systemctl restart cloudshell-receiver
 
-sudo systemctl enable ip-monitor.service
-
-sudo systemctl start ip-monitor.service
+Jalankan service pemantauan IP:
 
 sudo systemctl status ip-monitor.service
 
-
-#Mengecek Log output
----------------------------------------------------------------------------
+#📋 Melihat Log Output
+---------------------------
 
 journalctl -u ip-monitor.service -f
+
+#📌 Catata
+---------------
+Skrip ini ditujukan untuk pengguna tingkat lanjut dan penggunaan pribadi dalam mengelola resource cloud/VPS.
+
+Pastikan untuk tidak menyalahgunakan layanan cloud publik agar tidak melanggar kebijakan layanan.
+
+yaml
 

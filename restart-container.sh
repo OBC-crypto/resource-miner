@@ -40,13 +40,13 @@ def send_telegram_message(message):
 
 def restart_container():
     time_now = get_local_time()
-    send_telegram_message(f"🔄 Ogis dan Buda, *{CONTAINER_NAME}* server 1 di-restart.\n🕒 Waktu: {time_now} TA")
+    send_telegram_message(f"🔄 Ogis dan Buda, *{CONTAINER_NAME}* server1 di-restart.\n🕒 Waktu: {time_now} TA")
 
     try:
         subprocess.run(["docker", "restart", CONTAINER_NAME], check=True)
         time.sleep(5)
         time_now = get_local_time()
-        send_telegram_message(f"✅ Ogis dan Buda *{CONTAINER_NAME}* server 1 sudah di-restart.\n🕒 Waktu: {time_now}ITA")
+        send_telegram_message(f"✅ Ogis dan Buda *{CONTAINER_NAME}* server1 sudah di-restart.\n🕒 Waktu: {time_now}ITA")
     except subprocess.CalledProcessError as e:
         send_telegram_message(f"❌ Gagal me-restart container *{CONTAINER_NAME}*: {str(e)}")
 

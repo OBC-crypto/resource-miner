@@ -30,7 +30,7 @@ def send_telegram_message(message):
     requests.post(url, data=data)
 
 def main():
-    send_telegram_message("🔁 Ogis dan Buda, Server 1 direboot sekarang.")
+    send_telegram_message("🔁 Ogis dan Buda, Server1 direboot sekarang.")
     time.sleep(2)
     os.system("reboot")
 
@@ -56,7 +56,7 @@ def send_telegram_message(message):
 
 def main():
     time.sleep(30)
-    send_telegram_message("✅ Ogis dan Buda server 1 sudah aktif kembali.")
+    send_telegram_message("✅ Ogis dan Buda server1 sudah aktif kembali.")
 
 if __name__ == "__main__":
     main()
