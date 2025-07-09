@@ -83,7 +83,8 @@
 ----------------------------
 
 1. reboot.sh
-  Edit file:
+
+   Edit file:
 
        nano reboot.sh
 
@@ -96,7 +97,8 @@
 
 
 4. restart-container.sh
-  Edit file:
+
+   Edit file:
 
        nano restart-container.sh
 
@@ -137,13 +139,12 @@
 
         journalctl -u ip-monitor.service -f
 
-#📌 Catatn
+#📌 Ctatan
 ---------------
 
 1. Skrip ini ditujukan untuk pengguna tingkat lanjut dan penggunaan pribadi dalam mengelola resource cloud/VPS.
 
 2. Pastikan untuk tidak menyalahgunakan layanan cloud publik agar tidak melanggar kebijakan layanan.
 
-yaml
 3. Patuhi kebijakan layanan penyedia cloud. Penyalahgunaan dapat menyebabkan penangguhan akun.
 
