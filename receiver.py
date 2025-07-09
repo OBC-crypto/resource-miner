@@ -11,8 +11,8 @@ last_seen = {}
 # ======================
 # Konfigurasi Telegram
 # ======================
-BOT_TOKEN = "8039103967:AAH5wWpQ4JeA05VxXEK6H6KJKI5IlxC74MY"
-CHAT_ID = "843382635"
+BOT_TOKEN = ""
+CHAT_ID = ""
 
 def send_telegram(message):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
