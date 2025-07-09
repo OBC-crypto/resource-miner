@@ -4,6 +4,14 @@
 
 ---
 
+## Install Python3
+-----------------
+
+      sudo apt install python3
+      sudo pip3 intstall flask requests
+
+
+
 ## 📆 Pengaturan Waktu Server
 -----------------------------
 1. Cek waktu saat ini:
