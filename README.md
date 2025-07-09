@@ -6,49 +6,50 @@
 
 ## 📆 Pengaturan Waktu Server
 -----------------------------
-Cek waktu saat ini:
+1. Cek waktu saat ini:
 
-   ```bash
-   date
+date
 
-Pilih zona waktu yang sesuai:
+2. Pilih zona waktu yang sesuai:
 
 timedatectl list-timezones | grep Makassar
 
-Atur zona waktu ke Asia/Makassar:
+3. Atur zona waktu ke Asia/Makassar:
 
 sudo timedatectl set-timezone Asia/Makassar
 
-Konfirmasi:
+4. Konfirmasi:
 
 timedatectl
 date
 
 #🐳 Menjalankan Container Docker
 -------------------------------
-Jalankan container:
+
+1. Jalankan container:
 
 docker compose up -d
 
-Cek status container:
+2. Cek status container:
 
 docker ps -a
 
-Lihat log:
+3. Lihat log:
 
 docker logs <container-name-or-id>
 
-Restart container:
+4. Restart container:
 
 docker restart <container-name-or-id>
 
+
 #Menambahkan Swap (Virtual RAM)
 --------------------------------
-Cek memori:
+1. Cek memori:
 
 free -h
 
-Tambahkan 2GB swap:
+2. Tambahkan 2GB swap:
 
 
 sudo fallocate -l 2G /swapfile
@@ -57,7 +58,7 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
-Tuning performa swap:
+3. Tuning performa swap:
 
 
 sudo sysctl vm.swappiness=10
@@ -66,7 +67,7 @@ echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
 sudo sysctl vm.vfs_cache_pressure=50
 echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
 
-Verifikasi:
+4. Verifikasi:
 
 free -h
 
@@ -81,25 +82,27 @@ cd resource-miner
 #🔁 Eksekusi Skrip Otomatisasi
 ----------------------------
 
-reboot.sh
+1. reboot.sh
 Edit file:
+
 nano reboot.sh
 
-Isi TELEGRAM_TOKEN dan CHAT_ID.
+2. Isi TELEGRAM_TOKEN dan CHAT_ID.
 
-Simpan dan beri izin eksekusi:
+3. Simpan dan beri izin eksekusi:
 
 chmod +x reboot.sh
 ./reboot.sh
 
 
-restart-container.sh
+4. restart-container.sh
 Edit file:
+
 nano restart-container.sh
 
-Isi TELEGRAM_TOKEN dan CHAT_ID.
+5. Isi TELEGRAM_TOKEN dan CHAT_ID.
 
-Simpan dan eksekusi:
+6. Simpan dan eksekusi:
 
 chmod +x restart-container.sh
 ./restart-container.sh
@@ -108,14 +111,15 @@ chmod +x restart-container.sh
 #🛡️ Menjalankan Monitoring via systemd
 -------------------------------------
 
-Pindahkan dan edit skrip receiver:
+1. Pindahkan dan edit skrip receiver:
 
 mv /root/resource-miner/receiver.py /root
 nano /root/receiver.py
-Isi token Telegram dan chat ID lalu simpan.
+
+2. Isi token Telegram dan chat ID lalu simpan.
 
 
-Aktifkan layanan dengan systemd:
+3. Aktifkan layanan dengan systemd:
 
 
 mv /root/resource-miner/cloudshell-receiver.service /etc/systemd/system
@@ -124,7 +128,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable cloudshell-receiver
 sudo systemctl restart cloudshell-receiver
 
-Jalankan service pemantauan IP:
+4. Jalankan service pemantauan IP:
 
 sudo systemctl status ip-monitor.service
 
@@ -133,7 +137,7 @@ sudo systemctl status ip-monitor.service
 
 journalctl -u ip-monitor.service -f
 
-#📌 Catata
+#📌 Catatn
 ---------------
 Skrip ini ditujukan untuk pengguna tingkat lanjut dan penggunaan pribadi dalam mengelola resource cloud/VPS.
 
